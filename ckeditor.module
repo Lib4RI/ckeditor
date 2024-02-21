@@ -235,7 +235,7 @@ function ckeditor_get_version($main_version = FALSE) {
     return $ckeditor_version = NULL;
   }
 
-  $jspath = $editor_path . '/ckeditor.js';
+  $jspath = $editor_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js');
 
   $configcontents = @file_get_contents($jspath);
   if (!$configcontents) {

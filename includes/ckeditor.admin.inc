@@ -740,11 +740,11 @@ function ckeditor_admin_profile_form($form, $form_state, $task, $profile = NULL)
   }
 
   if ($editor_path == '<URL>') {
-    drupal_add_js($editor_url_path . '/ckeditor.js', 'external');
+    drupal_add_js($editor_url_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js'), 'external');
   }
   else {
     drupal_add_js('window.CKEDITOR_BASEPATH = "' . $editor_path . '/"', array('type' => 'inline', 'weight' => -100));
-    drupal_add_js($editor_url_path . '/ckeditor.js', array('type' => 'file', 'preprocess' => FALSE));
+    drupal_add_js($editor_url_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js'), array('type' => 'file', 'preprocess' => FALSE));
   }
   drupal_add_js($module_drupal_url_path . '/ckeditor.config.js', 'file');
   drupal_add_js($module_drupal_url_path . '/includes/ckeditor.admin.js', 'file');
@@ -1649,7 +1649,7 @@ function ckeditor_profile_delete($name) {
  */
 
 function _ckeditor_load_methods() {
-  $result = array('ckeditor.js' => 'ckeditor.js');
+  $result = array('ckeditor.js' => variable_get('ckeditor-js-file-name','ckeditor.js'));
   $ckeditor_local_path = ckeditor_path('local');
   if ($ckeditor_local_path == '<URL>') {
     return $result;
@@ -1837,7 +1837,7 @@ function ckeditor_skinframe() {
   $html .= "<html>";
   $html .= "<head>";
   $html .= '<title>CKEditor UI Color Picker</title>';
-  $html .= "<script type=\"text/javascript\" src=\"{$editor_path}/ckeditor.js\"></script>";
+  $html .= "<script type=\"text/javascript\" src=\"{$editor_path}/" . variable_get('ckeditor-js-file-name','ckeditor.js') . "\"></script>";
   $html .= "</head>";
   $html .= "<body>";
   $html .= "<input type=\"hidden\" name=\"uicolor_user\"/>";

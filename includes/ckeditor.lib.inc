@@ -474,13 +474,13 @@ function _ckeditor_script_path() {
   $jspath = '';
   $module_path = drupal_get_path('module', 'ckeditor');
 
-  if (file_exists($module_path . '/ckeditor/ckeditor.js')) {
+  if (file_exists($module_path . '/ckeditor/' . variable_get('ckeditor-js-file-name','ckeditor.js'))) {
     $jspath = '%m/ckeditor';
   }
-  elseif (file_exists($module_path . '/ckeditor/ckeditor/ckeditor.js')) {
+  elseif (file_exists($module_path . '/ckeditor/ckeditor/' . variable_get('ckeditor-js-file-name','ckeditor.js'))) {
     $jspath = '%m/ckeditor/ckeditor';
   }
-  elseif (file_exists(ckeditor_library_path('url') . '/ckeditor/ckeditor.js')) {
+  elseif (file_exists(ckeditor_library_path('url') . '/ckeditor/' . variable_get('ckeditor-js-file-name','ckeditor.js'))) {
     $jspath = '%l/ckeditor';
   }
   return $jspath;
@@ -499,7 +499,7 @@ function _ckeditor_requirements_isinstalled() {
   $editor_path = ckeditor_path('local');
   if ($editor_path == '<URL>')
     return TRUE;
-  $jspath = $editor_path . '/ckeditor.js';
+  $jspath = $editor_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js');
 
   $jsp = file_exists($jspath);
   if (!$jsp && ($editor_path = _ckeditor_script_path())) {
@@ -1275,7 +1275,7 @@ function ckeditor_load_by_field($field, $format, $show_toggle = TRUE, $add_field
       }
 
       if ($editor_local_path == '<URL>') {
-        drupal_add_js($editor_url_path . '/ckeditor.js', array('type' => 'external', 'scope' => 'footer'));
+        drupal_add_js($editor_url_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js'), array('type' => 'external', 'scope' => 'footer'));
       }
       else if (isset($load_method) && file_exists($editor_local_path . '/' . $load_method)) {
         drupal_add_js($editor_url_path . '/' . $load_method, array('type' => 'file', 'scope' => 'footer', 'preprocess' => $preprocess));
@@ -1285,7 +1285,7 @@ function ckeditor_load_by_field($field, $format, $show_toggle = TRUE, $add_field
         }
       }
       else {
-        drupal_add_js($editor_url_path . '/ckeditor.js', array('type' => 'file', 'scope' => 'footer', 'preprocess' => $preprocess));
+        drupal_add_js($editor_url_path . '/' . variable_get('ckeditor-js-file-name','ckeditor.js'), array('type' => 'file', 'scope' => 'footer', 'preprocess' => $preprocess));
       }
       $ckeditor_url = ckeditor_path('relative');
       if ($ckeditor_url == '<URL>') {
